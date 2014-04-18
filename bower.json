@@ -1,0 +1,26 @@
+{
+  "name": "social-engineering-for-good",
+  "version": "0.0.1",
+  "authors": [
+    "Scott Nonnenberg <scott@nonnenberg.com>"
+  ],
+  "description": "Some techniques for technical folks to better interact in meatspace.",
+  "main": "dist/slides.html",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "lodash": "2.4.1",
+    "mocha": "1.18.2",
+    "chai": "1.9.1",
+    "sinon": "1.9.1",
+    "reveal.js": "2.6.2",
+    "jquery": "1.11.0 "
+  }
+}

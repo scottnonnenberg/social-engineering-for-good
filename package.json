@@ -1,0 +1,22 @@
+{
+  "name": "social-engineering-for-good",
+  "version": "0.0.1",
+  "dependencies": {},
+  "devDependencies": {
+    "grunt": "0.4.4",
+    "grunt-contrib-jade": "0.11.0",
+    "grunt-contrib-watch": "0.6.1"
+  },
+  "main": "dist/slides.html",
+  "scripts": {
+    "blanket": {
+      "data-cover-only": "src",
+      "data-cover-never": "['node_modules/','bower_components/']"
+    }
+  },
+  "author": "Scott Nonnenberg",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:NiKnight/software-engineering-for-good.git"
+  }
+}
