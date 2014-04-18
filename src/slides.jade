@@ -762,16 +762,8 @@ html(lang='en')
 
     script(src='js/head.min.js')
     script(src='js/reveal.min.js')
-    script(src='js/jquery.min.js')
-    script(src='js/lodash.min.js')
-
-    script(src='js/mocha.js')
-    script(src='js/chai.js')
-    script(src='js/sinon.js')
 
     script.
-      var expect = chai.expect;
-
       Reveal.initialize({
         controls: false,
         progress: true,
@@ -786,57 +778,4 @@ html(lang='en')
           { src: 'js/classList.js', condition: function() { return !document.body.classList; } },
           { src: 'js/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
         ]
-      });
-
-      var run = function(text) {
-        console.log("*********");
-        try {
-          eval(text);
-        }
-        catch (e) {
-          console.log('error! ' + e.message);
-        }
-      }
-
-      $('a.run').click(function() {
-        run($(this).parent().find('code').text());
-        return false;
-      });
-
-      // taken from http://jsfiddle.net/TjXEG/1/
-      function getCaretCharacterOffsetWithin(element) {
-        var caretOffset = 0;
-        
-        if (typeof window.getSelection != "undefined") {
-          var range = window.getSelection().getRangeAt(0);
-          var preCaretRange = range.cloneRange();
-          preCaretRange.selectNodeContents(element);
-          preCaretRange.setEnd(range.endContainer, range.endOffset);
-          caretOffset = preCaretRange.toString().length;
-        }
-        else if (typeof document.selection != "undefined" && document.selection.type != "Control") {
-          var textRange = document.selection.createRange();
-          var preCaretTextRange = document.body.createTextRange();
-          preCaretTextRange.moveToElementText(element);
-          preCaretTextRange.setEndPoint("EndToEnd", textRange);
-          caretOffset = preCaretTextRange.text.length;
-        }
-        
-        return caretOffset;
-      }
-
-      $('code[contenteditable]').keypress(function(e) {
-        var enterCode = 13;
-        var code = e.keyCode || e.which;
-        
-        if(code === enterCode) {
-          var el = $(this).get(0);
-          var pos = getCaretCharacterOffsetWithin(el);
-          var text = $(this).text();
-          
-          if (pos === text.length) {
-            run(text);
-            return false;
-          }
-        }
       });

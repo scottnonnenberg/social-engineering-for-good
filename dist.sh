@@ -1,7 +1,16 @@
 set -e
 
+rm -rf dist
+
 # build jade templates
 grunt jade
+
+mkdir dist/img
+mkdir dist/css
+mkdir dist/css/theme
+mkdir dist/lib
+mkdir dist/lib/font
+mkdir dist/js
 
 # copy images over
 cp img/* dist/img/
@@ -24,16 +33,3 @@ cp bower_components/reveal.js/lib/js/html5shiv.js dist/js/html5shiv.js
 cp bower_components/reveal.js/js/reveal.js dist/js/reveal.min.js
 cp bower_components/reveal.js/lib/js/classList.js dist/js/classList.js
 cp bower_components/reveal.js/plugin/highlight/highlight.js dist/js/highlight.js
-
-# other components
-cp bower_components/jquery/jquery.min.js dist/js/jquery.min.js
-cp bower_components/lodash/dist/lodash.min.js dist/js/lodash.min.js
-cp bower_components/mocha/mocha.js dist/js/mocha.js
-cp bower_components/chai/chai.js dist/js/chai.js
-
-# build and copy sinon - requires juicer ('gem install juicer')
-pushd bower_components/sinon > /dev/null
-./build
-popd > /dev/null
-cp bower_components/sinon/pkg/sinon.js dist/js/sinon.js
-
