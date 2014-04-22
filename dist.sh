@@ -32,4 +32,3 @@ cp bower_components/reveal.js/lib/js/head.min.js dist/js/head.min.js
 cp bower_components/reveal.js/lib/js/html5shiv.js dist/js/html5shiv.js
 cp bower_components/reveal.js/js/reveal.js dist/js/reveal.min.js
 cp bower_components/reveal.js/lib/js/classList.js dist/js/classList.js
-cp bower_components/reveal.js/plugin/highlight/highlight.js dist/js/highlight.js
