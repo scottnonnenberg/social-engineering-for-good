@@ -3,7 +3,7 @@ html(lang='en')
   head
     meta(charset='utf-8')
 
-    title taking javascript seriously
+    title social engineering for good, not evil
 
     meta(name='description', content='A talk about how to make your javascript development more like your "real" development.')
     meta(name='author', content='Scott Nonnenberg')
@@ -22,7 +22,7 @@ html(lang='en')
        ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + ".css' type='text/css' media='print'>" );
 
     //- if lt IE 9
-    //- script(src='js/html5shiv.js')
+    //-   script(src='js/html5shiv.js')
 
     style.
       .center {
@@ -50,715 +50,450 @@ html(lang='en')
       .reveal th {
         font-weight: bold;
       }
-
+      .reveal img.plain {
+        border: 0;
+        box-shadow: none;
+        background: none;
+      }
+      .reveal img.max {
+        width: 95%;
+      }
 
   body
     .reveal
 
       .slides
         section
-          h1 Software Engineering for Good, Not Evil
-          h3 Because it's not just about the tech
-          h3: a(target='_blank', href='https://scottnonnenberg.com') Scott Nonnenberg
-          h4.spacer: a(target='_blank', href='http://scottnonnenberg.github.io/social-engineering-for-good/dist/slides.html') github.com/scottnonnenberg/social-engineering-for-good
+          h1 Social Engineering for Good, Not Evil
+          h3.spacer Because it's not just about the tech
+          h3.spacer: a(target='_blank', href='https://scottnonnenberg.com') Scott Nonnenberg
+          h4: a(target='_blank', href='http://scottnonnenberg.github.io/social-engineering-for-good/dist/slides.html') github.com/scottnonnenberg/social-engineering-for-good
+
+        section
+          h1 The Divide
+          aside.notes
+            ul
+              li Between tech and non-tech
+              li Frustrations on both sides
 
         section
           section
-            h1 why take it seriously?
-            ul
-              li More code
-              li More complex web experiences
-              li More hard-to-test interactivity
-
+            h1 Why me?
+            aside.notes Well, I have an interesting history in the tech world...
+          
           section
-            h2 Raise your hand if you...
-            
-            ul
-              li unit test
-              li.fragment integration/acceptance test
-              li.fragment measure code coverage
-              li.fragment run static analysis
-              li.fragment run continuous integration
-              li.fragment use dependency injection
-              li.fragment use the service locator pattern
-
-            h2.spacer your server code?
-
-          section
-            h1 Do that with your javascript?
-            h2 Keep those hands up
-
-          section
-            h1 Let's dig in
-
-
-        section
-          section
-            h1 Basic tools
-            h2 nobody writes straight javascript
-
-          section
-            h2 jquery
-            h3 use it? raise your hand
-            pre: code(data-trim, contenteditable).
-              $('#id').click(function() {
-                alert('something!');
-              });
-
-              $.getJSON('http://somewhere', function(data) {
-                alert(data);
-              });
-
-          section
-            h2 lodash/underscore
-            h3 use it? raise your hand
-            .runner
-              pre: code(data-trim, contenteditable).
-                var a = [1, 2, 3, 4, 5];
-                var result = _.reject(a, function(item) { return item > 3; });
-                console.log(result);
-
-                var b = [3, 4, 5, 6, 7];
-                var result = _.intersection(a, b);
-                console.log(result);
-
-              a.run(href='#') run
-
-          section
-            h2 mvc/mvvm
-            h3 use one? raise your hand
-            ul
-              li backbone
-              li ember
-              li angular
-              li lots more!
-            p.spacer
-              | use 
-              a(target='_blank', href='http://todomvc.com/') todomvc
-              |  to shop around
-            p.spacer why wouldn't you? organize your code intelligently!
-
-        section
-          section
-            h2 open source: a different world
-            table
-              tr
-                th(width='50%') XCode/VS/Eclipse
-                th open source
-              tr
-                td big IDE
-                td text editors
-              tr
-                td large built-in set of libaries
-                td many options with separate communities
-              tr
-                td official channels
-                td usually github
-              tr
-                td intellisense, docs, blogs
-                td annotated source, blogs, sometimes docs
-
-          section 
-            h2 choosing an open source project
-            h3 activity level
-            ul
-              li date of last release, frequency of releases
-              li look for open bugs - orphaned? time to resolve?
-              li date of the last commit
-            h3.spacer size of community
-            ul
-              li stars and forks
-              li questions/answers on stack overflow
-            
-            h3.spacer fork it, fix it, and pull request it!
-
-        section
-          h2 other libraries I use
-          ul
-            li 
-              strong timezone-js
-            li 
-              strong easyxdm
-              |  - cross-domain communication
-            li 
-              strong spin.js
-              |  - non-image progress spinners
-            li
-              strong d3.js
-              |  - svg-based interactive data visualizations
-            li
-              strong socket.io
-              |  - websockets, graceful degradation
-          p.spacer.fragment which brings us to...
-
-        section
-          section
-            h2 dependency management
-            p how do you manage lots of libraries?
-            
-            .fragment
-              h3.spacer: a(target='_blank', href='http://bower.io/') bower
-              h3: a(target='_blank', href='https://npmjs.org/doc/install.html') npm
-
+            img.max(src='img/milton.jpg')
+            aside.notes
               ul
-                li easily download and install
-                li manage those libraries' dependencies
-                li check for updates
+                li I was this guy! There's a reason there aren't many pictures remaining of me from high school
+                li Discovered computer games at age 8
+                li Family wasn't technical, always encouraging me to spend less time on the computer (guilt complex!)
+                li Called a geek or brain in school
+                li Started working at HP doing web dev in High school
+                li Computer Science at CalPoly
 
           section
-            h2 managing versions over time
-            h3 semantic versioning (semver)
+            img.max(src='img/lundberg.jpg')
+            aside.notes
+              ul
+                li During my time at Microsoft, I got a little more "business-y"
+                li And that caused resentment from the tech folks - called "overhead" 
+
+          section
+            h1 The challenge
+            aside.notes
+              ul
+                li Technology came naturally to me, people didn't
+                li I explicitly took the challenge, going from dev to business as I joined Microsoft
+                li Called abrasive... at Microsoft!
+                li People are harder to deal with than the code!
+
+        section
+          section
+            h1 Student of human behavior
+            aside.notes 
+              ul
+                li I needed to become a...
+                li Treat it like a skill to be learned
+
+          section
+            h1 People matter
+            aside.notes
+              ul
+                li They are as importrant to your career than your tech skill
+                li Business is people interacting
+                li Your job is people interacting
+                li etc.
+
+          section
+            h2 You've got the hardware
+            ul.spacer
+              li.fragment We are systematic, logical thinkers
+              li.fragment Debugging = collecting data, theorizing, testing
+              li.fragment We've tuned our intuition for 'code smells'
+            aside.notes 
+              ul
+                li We are systematic, logical thinkers
+                  ul
+                    li We think about entire systems, understand how one change will affect it
+                li Debugging = collecting data, theorizing, testing
+                  ul
+                    li We all have that story of a really tough bug, where we tried approach after approach, and finally fixed it!
+                li We've tuned our intuition for 'code smells'
+                  ul
+                    li By looking at lots and lots of code, we've trained low-level systems
+
+        section
+          section
+            h1 Three C's of Communication
+            aside.notes
+              ul
+                li First, let's talk about the basic building blocks of dealing with humans
+  
+          section
+            h2 Clarity
+            ul.spacer
+              li.fragment Define terms
+              li.fragment Summarize with paraphrasing
+              li.fragment Agree on specific next steps
+              li.fragment Send meeting notes 
+            aside.notes
+                ul
+                  li Define terms
+                    ul
+                      li story: Everett at Microsoft, early on
+                  li Summarize with paraphrasing
+                    ul
+                      li Exercise: have someone volunteer to paraphrase, have it be wrong. words are tricky!
+                      li I need this by Friday
+                      li This is extremely urgent! Get it to me ASAP.
+                      li Please have this on my desk by EOD today.
+                      li Please send the email in a few days.
+                  li Agree on specific next steps
+                  li Send meeting notes 
+                    ul
+                      li at Microsoft I used to take notes on the screen - real-time summary paraphrase!
+
+          section
+            h2 Confidence
+            ul.spacer
+              li.fragment Posture
+              li.fragment Eye contact
+              li.fragment No trail-off
+              li.fragment Minimize weasel-words
+            aside.notes
+              ul
+                li Posture
+                  ul
+                    li the classic tech posture
+                    li [have everyone stand, shoulders back, chest forward, pelvis tilted a little back]
+                    li standing desk, multiple keyboards!
+                    li could do an entire talk on this
+                    li go to massage therapist, physical therapist
+                li Eye contact
+                li No trail-off
+                li Minimize weasel-words
+                  ul
+                    li used to crack down on this as a Project Manager at Microsoft
+                    li speak plainly, no more and no less than necessary
+
+          section
+            h2 A word on weasel words
+            ul.spacer
+              li Remove authority with passive voice: "it is said"
+              li Weaken core idea: "often", "probably"
+              li Remove specific numbers: "some people", "experts", "many"
+            .spacer
+              | More info: 
+              a(href='http://en.wikipedia.org/wiki/Weasel_word') Wikipedia
+              |  / 
+              a(href='http://www.weaselwords.com.au/home/') weaselwords.com.au
+
+          section
+            h2 Caring
+            ul.spacer
+              li.fragment Facial expressions, tones of voice
+              li.fragment Be less judgmental!
+              li.fragment Don't preach; influence
+              li.fragment The Platinum Rule
+
+            aside.notes
+              li [here is where we have the risk of looking evil]
+              li Facial expressions, tones of voice
+                ul
+                  li Beyond simple expressions, need to give them what they want, not what you want
+                  li The key is that the same action without that caring, the positive body language, can be interpreted poorly
+              li Be less judgmental!
+                ul
+                  li You know you do it - you're sure you're right, how could they possibly think so wrongly?
+                  li we're really bad actors
+                  li the best way to act like you care about someone is to actually care about them
+                  li.spacer maybe you're already considered evil? maybe have a history of negative interactions
+                  li will take time to break through
+
+              li Don't preach; influence
+                ul
+                  li Can't appeal to some random authority
+                  li Need to influence by speaking their language, connect to their priorities
+
+              li The Platinum Rule
+                ul
+                  li A step better than the golden rule
+                  li But it's even harder to do!
+                  li Story: Asked for two-page stories for christmas because I already had too much stuff.
+                  li I only got one story and a bunch of gifts.
+
+          section
+            h2 A word on relationships
+            ul.spacer
+              li.fragment Acknowledge feelings
+              li.fragment Contradict facts softly
+            aside.notes
+              ul
+                li Acknowledge feelings
+                li Contradict facts softly
+                li [the point is that we're valuing their perspective, even if it's different]
+
+        section
+          section
+            h1 First, Seek Understanding
+
+          section
+            h2 Pay attention!
+            aside.notes
+              ul
+              li build subconscious pattern recognition
+
+          section
+            img.max(src='img/code_nice.png')
+
+          section
+            img.max(src='img/code_ugly.png')
+
+          section
+            h2 Be deliberate in tuning your intuition!
+            aside.notes
+              ul
+                li [which was was better, higher quality?]
+                li tuning your intuition - requires lots of data an experiences
+                li switch companies/teams?
+                li the more cultures, people and teams you work with, the more data, better the tuning
+
+          section
+            h2 Build and Test Mental Models
             ul
-              li X.0.0 for breaking changes
-              li 1.X.0 for addition of features
-              li 1.0.X for bugfixes
-              li.fragment
-                strong warning
-                | : 0.x.x is flexible
-            
-            p.spacer.fragment jquery "1.x" or jquery "~1.10.2"
-            
-            p.spacer.fragment
-              | npm allows you to be hardcore: 
-              a(target='_blank', href='https://npmjs.org/doc/shrinkwrap.html') shrinkwrap
+              li.fragment(data-fragment-index='1') What do they know?
+              li.fragment(data-fragment-index='1') What mindset might cause their current behavior?
+              li.fragment(data-fragment-index='1') What are they trying to achieve with X action? Generally?
+              li.fragment Consider larger context: incentives, deadlines, manager's desires, team, history, etc...
+              li.fragment Test your theories by asking questions
+            aside.notes
+              ul
+                li [Now we start building on top of that subconcsious pattern recognition - verbalize!]
+                li What do they know?
+                li What mindset might cause their current behavior?
+                li What are they trying to achieve with X action? Generally?
+                li Consider larger context: incentives, deadlines, manager's desires, team, history, etc...
+                  ul
+                    li [exercise? hold two conflicting ideas in your head]
+                    li Key: you need to be okay with a different perspective
+                li Test your theories by asking questions
 
-        section
-          h1 back to our project
-          h2 but we're full TDD, right?
-
-        section
           section
-            h1 let's set up a test harness
-            
-          section
-            h2 mocha: test runner
-            .runner
-              pre: code(data-trim, contenteditable).
-                mocha.setup('bdd');
-                describe('MyClass', function() {
-                  before(function(done) {
-                    // initial setup, async because arity > 0
-                    done();
-                  });
-
-                  beforeEach(function() {
-                    // before every test
-                  });
-
-                  describe('#method', function() { // nested describe
-                    it('should handle a null parameter', function() {
-                      // test logic here, exceptions denote failure
-                    });
-                  });
-                });
-
-              a.run(href='#') run
-            p runs in the browser and on the command line
+            h1 A word on your career
           
           section
-            h2 chai: fluid assertions
-            .runner
-              pre: code(data-trim, contenteditable).
-                var expect = chai.expect;
-
-                var x;
-                expect(x).not.to.exist;
-
-                var data = { x: 6 };
-                expect(data).to.have.property('x', 6);
-                expect(data).to.deep.equal({x: 6});
-
-              a.run(href='#') run
+            img.plain(src='img/venn_good.png')
+            aside.notes
+              ul
+                li it's here you'll start to notice that most people are at the intersection of: easy, visible, good job]
+                li It's not a bad thing, it's just the truth
+                li And we're not being evil here; help people extend past that middle intersection
           
           section
-            h2 sinon: stubs and spies
-            .runner
-              pre: code(data-trim, contenteditable).
-                var spy = sinon.spy(String.prototype, 'toUpperCase');
-                expect(spy).to.have.property('callCount', 0);
-                expect('blah'.toUpperCase()).to.equal('BLAH');
-                expect(spy).to.have.property('callCount', 1);
-                spy.restore();
-
-                var stub = sinon.stub().returns(6);
-                expect(stub()).to.equal(6);
-                expect(stub).to.have.property('callCount', 1);   
-
-              a.run(href='#') run
-            p.spacer it can also redirect $.ajax and sandbox entire browser
-            
+            img.plain(src='img/venn_big_picture.png')
+            aside.notes
+              ul
+                li you can be different
+                li this is where you can push your career forward
+                li Beware of people already here because it's in their visible/good job/easy bucket)
+                li Also be sure to do enough to get that good job review; solid foundation
+                li But what is that big pictures? Let's go deeper
+ 
           section
-            h2 blanket: code coverage
-            
-            p no instrumentation step!
-            p.spacer easy client-side setup
-            pre: code(data-trim, contenteditable).
-              &lt;script src="blanket.js"&gt;&lt;/script&gt;
-              &lt;script src="my-library.js" data-cover&gt;&lt;/script&gt;
-            
-            p.spacer easy node.js setup          
-            pre: code.
-              mocha --require blanket --reporter html-cov testfile1.js testfile2.js
-
-              // in package.json:
-              "scripts": {
-                "blanket": {
-                  "data-cover-only": "src"
-                }
-              }
-            
-          section
-            h2 phantomjs: headless browser
-            ol
-              li run tests
-              li interact with web pages
-              li capture screenshots
-              li based on webkit
-
-
-        section
-          section
-            h1 Rounding it out
-
-          section
-            h2 documentation
-            h3 groc
-            p comments interspersed with source
-            h3.spacer jsdoc
-            p meaningful tags
-
-          section
-            h2 running in a real browser
-            .fragment
-              h3.spacer
-                a(target='_blank', href='http://www.muscula.com/') muscula
-                | : error capture and reporting
-              p use only for production; breaks mocha testing
-            
-            .fragment
-              h3.spacer script tags at the bottom
-              p script block while they load by default
-              a(target='_blank', href='http://stackoverflow.com/questions/436411/where-is-the-best-place-to-put-script-tags-in-html-markup') source
-              |  
-              a(target='_blank', href='http://developer.yahoo.com/performance/rules.html#js_bottom') source
-            
-            .fragment
-              h3.spacer only a few js files
-              p browsers will only open so many connections to the server
-              a(target='_blank', href='http://stackoverflow.com/questions/5751515/official-references-for-default-values-of-concurrent-http-1-1-connections-per-se') source
-              |  
-              a(target='_blank', href='http://www.stevesouders.com/blog/2008/03/20/roundup-on-parallel-connections/') source
-
-          section
-            h1 but how?
-            h2 want small, single-reponsibility files
-            h2 don't want a new script tag per file
-
-        section
-          section
-            h2 Modules
-            h3.spacer CommonJS
-            pre: code.
-              var _ = require('lodash');
-
-              module.exports = function(options) {};
-            h3.spacer AMD
-            pre: code.
-              define(['lodash'], function(_) {
-                return function(options) {};
-              });
-
-          section
-            h2 module managers
-            .fragment
-              h3.spacer AMD: requirejs and almond.js
-              p pro: no build step required; detailed control
-              p con: boilerplate required for every file
-            .fragment
-              h3.spacer CommonJS: browserify
-              p pro: stubs out standard node.js components for you
-              p con: requires build step to get into browser
-            .fragment
-              h3.spacer Other: google closure compiler
-              p pro: can prune unused code
-              p con: requires build step to get into browser
-
-        section
-          h2 dependency injection
-          pre: code.
-            function Obj(options) {
-              options = options || {};
-
-              this.Database = options.Database || Database;
-              this.database = new this.Database();
-              this.service = options.service || service;
-            }
-
-          .fragment
-            h3.spacer Service Locator Pattern
-            p Not a common thing in javascript world yet.
-            p.spacer 
-              a(target='_blank', href='http://docs.angularjs.org/guide/di') Angular 
-              |  - the first mainstream project to take it seriously.
-            p.spacer
-              | other folks 
-              a(target='_blank', href='https://github.com/holt/syringe') are
-              |  
-              a(target='_blank', href='https://github.com/idottv/dependable') experimenting
-              |  
-              a(target='_blank', href='https://npmjs.org/browse/keyword/dependency%20injection') with
-              |  it
-
-        section
-          h1 finally some code!
-        
-        section
-          section
-            h1 but how well do you know javascript?
-
-          section
-            h2  falsey vs. truthy
-            .runner
-              pre: code(data-trim, contenteditable).
-                console.log(!!null);
-                console.log(!!undefined);
-                console.log(!!false);
-                console.log(!!0);
-                console.log(!!'');
-                console.log(!!NaN);
-                
-                var f = function() {};
-                console.log(!!f);
-                console.log(!!1);
-                console.log(!!'something');
-                console.log(!!true);
-
-              a.run(href='#') run
-
-          section
-            h2 
-             | === vs ==
-            .runner
-              pre: code(data-trim, contenteditable).
-                var o = {a: 0};
-                console.log(o.a == '0');
-                console.log(o.a == 0);
-                console.log(o.a === '0');
-                console.log(o.a === 0);
-
-                o.a = null;
-                console.log(o.a == null);
-                delete o.a; // now it's undefined
-                console.log(o.a == null);
-
-
-              a.run(href='#') run
-
-          section
-            h2 functions are objects
-            .runner
-              pre: code(data-trim, contenteditable).
-                var f = function(a) {
-                  console.log(arguments);
-                }
-
-                console.log(typeof f);
-                console.log(f);
-                console.log(f.length);
-
-                f.a = 4;
-                console.log(f.a);
-
-                f(6, 7);
-                f.call(null, 6, 7);
-                f.apply(null, [6, 7]);
-              a.run(href='#') run
-              
-          section
-            h2 context and closures
-            .runner
-              pre: code(data-trim, contenteditable).
-                var a = 1;
-                var f = function(b) {
-                  return function(c) {
-                    console.log('a: ' + a + '; b: ' + b + '; c: ' + c);
-                  }
-                }
-                
-                var g = f('2');
-                g(3);
-                g(4);
-
-                a = 2;
-                g(5);
-              a.run(href='#') run
-            
-          section
-            h2 single-threaded, always
-            .runner
-              pre: code(data-trim, contenteditable).
-                x = 0;
-
-                var first = setInterval(function() {
-                  x += 1;
-                  console.log(x);
-                }, 1);
-                var second = setInterval(function() {
-                  x -= 1;
-                  console.log(x);
-                }, 1);
-                
-                setTimeout(function() {
-                  clearInterval(first);
-                  clearInterval(second);
-                }, 250); 
-              a.run(href='#') run
-            p.spacer
-              | (
-              a(target='_blank', href='https://developer.mozilla.org/en-US/docs/Web/Guide/Performance/Using_web_workers') web workers
-              |  do now allow concurrency, but you don't have access to the same context)
+            h2 Getting Deeper
           
           section
-            h2 prototype inheritance
-            .runner
-              pre: code(data-trim, contenteditable).
-                function Super(options) { this.a = options.a };
-                Super.prototype.f = function() { console.log(this.a); };
-                
-                function Sub(options) {
-                  Super.call(this, options);
-                };
-                Sub.prototype = Object.create(Super.prototype, {
-                  constructor: { value: Sub }
-                });
-
-                var p = new Super({a: 'super'});
-                p.f();
-                var c = new Sub({a: 'sub'});
-                c.f();
-
-                Sub.prototype.g = function() { console.log('post create add!'); };
-                c.g();
-              a.run(href='#') run
-              
-          section
-            h2 getters/setters
-            .runner
-              pre: code(data-trim, contenteditable).
-                function Obj() { this.value = 1; };
-
-                Object.defineProperty(Obj.prototype, 'property', {
-                  get: function() { 
-                    return 'computed: ' + this.value;
-                  },
-                  set: function(value) { 
-                    this.value = value;
-                  }
-                });
-
-                var o = new Obj();
-                
-                console.log(o.property);
-                o.property = 2;
-                console.log(o.value);
-
-              a.run(href='#') run
-
-            p.spacer
-              a(target='_blank', href='https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/create') Object.create
-              |  and 
-              a(target='_blank', href='https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty') Object.defineProperty
-              |  are 
-              a(target='_blank', href='http://en.wikipedia.org/wiki/ECMAScript') ES5
-              |  features.
-            p.spacer.fragment which brings us to...
-        
-        section
-          section
-            h1 uneven browser support!
-            h2 nooo!
-
-          section
-            h2 how bad is it?
-            h3.spacer: a(target='_blank', href='http://caniuse.com/#cats=JS_API') caniuse
-            p support matrix for javascript features, css, svg, html5
-            h3.spacer: a(target='_blank', href='http://kangax.github.io/es5-compat-table/') kangax
-            p detailed es5 feature matrix
-
-          section
-            h2 the horrible truth
-            p overall javascript feature support
-            p
-              a(target='_blank', href='http://caniuse.com/#cats=JS_API')
-                img(src='img/caniuse_javascript_totals.png')
-
-          section
-            h2 browser usage
-            p
-              a(target='_blank', href='http://caniuse.com/usage_table.php')
-                img(src='img/caniuse_browser_usage.png')
-
-          section
-            h1 all is not lost!
-          
-          section
-            h2 polyfills to the rescue!
-            p.center(style='max-width: 20em')
-              strong polyfill
-              | : downloadable code providing functionality not built into a web browser
-            p.spacer: a(target='_blank', href='http://html5please.com/#js') html5please.com
-            p: a(target='_blank', href='https://github.com/kriskowal/es5-shim/') es5-shim
-            p: a(target='_blank', href='https://code.google.com/p/html5shiv/') html5-shiv
-
-          section
-            h2 testing in actual browsers
-            
-            h3.spacer test tools
-            p: a(target='_blank', href='http://karma-runner.github.io/0.10/index.html') karma
-            p: a(target='_blank', href='https://github.com/airportyh/testem') Test'em
-
-            h3.spacer services
-            p: a(target='_blank', href='http://crossbrowsertesting.com') crossbrowsertesting.com
-            p: a(target='_blank', href='http://www.browserstack.com/') browserstack.com
-            p: a(target='_blank', href='http://www.smashingmagazine.com/2011/08/07/a-dozen-cross-browser-testing-tools/') many more... 
-              
-          section
-            h1 back to the code
-
-        section
-          section
-            h2 this
-            .runner
-              pre: code(data-trim, contenteditable).
-                function Obj() { this.x = 7; };
-                Obj.prototype.f = function() { console.log(this); };
-                
-                var o = new Obj();
-                o.f();
-
-                var g = o.f; // pull the method out
-                g(); // raw call, gets global context
-                
-                g.call(o);
-                
-                g = _.bind(g, o);
-                g();
-
-                var nope = Obj(); // forgot the new
-                console.log(nope); // undefined!
-                console.log(x); // where did this come from?
-
-              a.run(href='#') run
-
-            p.spacer.fragment which brings us to...
-        
-        section
-          section
-            h2 strict mode
-            p fixing some of the key problems with javascript
-            .runner.spacer
-              pre: code(data-trim, contenteditable).
-                'use strict';
-
-                // these no longer parse
-                var broken = function(dupe, dupe) {}; // no duplicate parameters
-                var broken = { dupe: 1, dupe: 2 }; // no duplicate keys
-
-                with ({}) { x = 4; y = 3; } // no more with
-                var x = 015; // you probably don't mean octal syntax
-
-
-                // these fail at runtime
-                function Obj() { this.x = 7; };
-                var nope = Obj(); // this not set to global anymore
-
-                y = 5; // using undefined var
-                delete Object.prototype; // this would normally fail silently
-
-              a.run(href='#') run
-            p: a(target='_blank', href='https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions_and_function_scope/Strict_mode') full docs at MDN
-
-          section
-            h2 strict mode support
-            p
-              a(target='_blank', href='http://caniuse.com/#feat=use-strict')
-                img(src='img/caniuse_strict_mode.png')
-            p.spacer you'll need to be a careful, since it changes behavior
-
-        section
-          section
-            h1 okay, it's a bit tricky
-            h2 but there are tools to help!
-          
-          section
-            h2 jshint
+            h2 Better questions
             ul
-              li forgot 'new' keyword?
-              li did you really mean == instead of ===?
-              li warn on use of undeclared variable
-              li never-used variables, unreachable code
-              li cyclomatic complexity, with error threshold
-              li force strict mode
-              li style: indentation and quote character
-
-            p.spacer
-              a(target='_blank', href='http://www.jshint.com/') jshint
-            p
-              a(target='_blank', href='http://jslinterrors.com/jshint/')  jslinterrors.com: a useful guide
+              li.fragment First, build trust
+              li.fragment Important to do this 1 on 1
+              li.fragment Open-ended, minimal leading
+              li.fragment Ask why
+              li.fragment "Tell me about the last time you X" (specific, recent)
+              li.fragment Clarity: paraphrase, define words
+              li.fragment How do they spend their time? money?
+              li.fragment Try with your manager, peers, customers, friends, etc.
+              aside.notes
+                ul
+                  li First, build trust
+                    ul
+                      li Again, with the evil - your percieved intentions matter here
+                  li Important to do this 1 on 1
+                    ul
+                      li People will affect each other's answers
+                  li Open-ended, minimal leading
+                    ul
+                      li you're trying to understand them, not influence them
+                      li trying to understand deeper attitudes, true priorities - how they think
+                  li Ask why or how questions
+                  li "Tell me about the last time you X" (specific, recent)
+                    ul
+                      li Breakin  g through person's ideals about themselves
+                      li Most people have lofty ideals, noble pursuits.
+                      li when you look at how much time they actually spend on that stuff, it's pretty minimal
+                      li You can trace back the majority of their time to a few things: money, sex, power, food, physical comfort.
+                      li Now I'm starting to sound like a supervillain, justifying my plan to kill of most of the human race.
+                      li That's the crazy thing. This is humanity, and it applies to all of us too.
+                  li Clarity: paraphrase, define words
+                  li How do they spend their time? money?
+                  li Try with your manager, peers, customers, friends, etc.
+                    ul
+                      li From Steve Blank's Customer Development
+                      li Extremely important in the startup world to truly understand your market
 
           section
-            h2 complexityReport.js
-            p perhaps you'd like to check the maintainability of your code?
-            p 
-              a(target='_blank', href='https://github.com/philbooth/complexityReport.js')
-                img(src='img/complexity-report.png')
-            p 
-              | (best implemented using a 
-              a(target='_blank', href='https://github.com/vigetlabs/grunt-complexity') grunt task
-              | )
-            p.spacer.fragment which brings us to...
+            h1 Now what?
+            aside.notes Now that you have all this deep understanding, what do you do with it?
+
+          section
+            h2 What is creativity?
+            ul.spacer
+              li.fragment Different
+              li.fragment Unique
+              li.fragment Better
+              li.fragment Solving a problem
+            aside.notes
+              ul
+                li [Can you guys define creativity for me?]
+                li Different
+                li Unique
+                li Better
+                li Solving a problem
 
         section
-          h2 grunt: project automation
-          p
-            a(target='_blank', href='http://gruntjs.com/')
-              img(height='200', border='0', src='img/grunt-logo.png')
-          p tasks available for jshint, mocha, watch, concat/minify, etc.
-          p 
-            a(target='_blank', href='http://gruntjs.com/api/inside-tasks') powerful api
-            |  for developing your own tasks
-          p
-            | plugs into continuous integration: 
-            a(target='_blank', href='http://sideroad.secret.jp/articles/grunt-on-jenkins/') jenkins
-            | , 
-            a(target='_blank', href='http://manuel.manuelles.nl/blog/2012/06/22/integrate-travis-ci-into-grunt/') travis-ci
+          section
+            h1 Solve problems
+            ul.spacer
+              li Customer problems
+              li Your manager's problems
+              li Your peer's problems
+              li Your friends' and family's problems
+
+          section
+            h2 A word on evil
+            ul
+              li.fragment Easy to 'fall into'
+              li.fragment Fairness matters
+              li.fragment Do they have any other options?
+              li.fragment Is it too direct?
+              li.fragment Did you give them a chance to help?
+              aside.notes
+                ul
+                  li Easy to 'fall into'
+                    ul
+                      li The real world isn't superheroes and supervillains.
+                      li Free-to-play games - is that abusing deep knowledge of psychology?
+                  li Fairness matters
+                    ul
+                      li You're collaborating on something. Make sure the outcome is reasonably fair for you.
+                      li Be sure to give credit to those your worked with.
+                  li Do they have any other options?
+                    ul
+                      li Uber's congestion pricing
+                      li High-priced umbrellas (rain) or fans and AC (heat)
+                      li People taking low-wage jobs
+                  li Is it too direct?
+                    ul
+                      li Need to make sure to address higher ideas as well as low-level needs/desires
+                      li Money and meaning makes for a better, fuller job                     
+                      li Straight porn vs. using sex to sell in a subtle way
+                  li Did you give them a chance to help?
+                    ul
+                      li It's a hit to pride if you just do something for someone
 
         section
-          h1 whew!
+          h2 Summary
+          ul
+            li Become a student of human behavior
+            li First, seek understanding
+              ul
+                li Pay attention: tune intuition with lots of data
+                li Build and test mental models
+                li Get deeper: past the abstract and ideal
+            li Communicate well - three C's
+              ul
+                li Clarity
+                li Confidence
+                li Caring: the platinum rule, judge less
+            li Solve problems!
 
         section
-          h2 we covered an extreme amount
-          p
-            | fortunately, there are tools to help you jump in really fast
-          p
-            a(target='_blank', href='http://yeoman.io/')
-              img(height='200', border='0', src='img/yeoman-logo.png')
-          pre: code.
-            [sudo] npm install -g yo generator-webapp
-            mkdir yeoman-app
-            cd yeoman-app
-            yo webapp
-          p.spacer study it for best practices, improve it, fork it, pull request it!
-          p: a(target='_blank', href='http://yeoman.io/community-generators.html') many, many other generators
+          section
+            h1 Next Steps
+
+          section
+            h2 Next steps: Advanced
+            ul.spacer
+              li Understanding entire systems
+                ul
+                  li How a team works together
+                  li How a team works with another team
+                  li How a set of teams interact with each other
+                  li How the entire business works
+              li Predicting emergent behavior - a few steps ahead
+              li Entrepreneurship - at its core, solving people's problems
+
+          section
+            h2 Next steps: Involve Others
+            ul.spacer
+              li Get a mentor to talk through things
+              li Find a peer to code review your theories
+              li Play this game with friends for movies/shows/books:
+                ul
+                  li Why did the character do X?
+                  li Does that seem consistent with their character/world?
+                  li Do you have any guesses about the writer? Their biases?
+              li However you learn best: books/magazines/blogs/etc.
+
+          section    
+            h2 Next Steps: Further reading
+            ul.spacer
+              li: a(target='_blank', href='https://news.ycombinator.com/item?id=7493290') Ask HN: difference between junior and senior developer 
+                ul
+                  li: a(target='_blank', href='https://news.ycombinator.com/item?id=7493493') "Most of the important skills have nothing to do with technology"
+                  li: a(target='_blank', href='https://news.ycombinator.com/item?id=7493661') Humility/self-awareness
+              li
+                a(target='_blank', href='https://medium.com/p/e60c10d3ed1f') A woman's perspective on the tech industry
+                ul
+                  li (valuable traits: "empathy, humility, and introspection")
+              li: a(target='_blank', href='http://www.yesmagazine.org/issues/education-uprising/raise-your-hand-if-you-know-how-it-feels') Empathy helping high-poverty schools
+              li: a(target='_blank', href='http://giffconstable.com/2012/12/12-tips-for-early-customer-development-interviews-revision-3/') Good interviewing techniques
+              li Steve Blank's Customer Development: 
+                a(href='https://www.udacity.com/course/ep245') blog posts
+                |  / 
+                a(href='http://steveblank.com/category/customer-development/') class
+              li: a(target='_blank', href='http://www.amazon.com/Triumphs-Experience-Harvard-Grant-Study/dp/0674059824') What makes for a 'good' life and career
 
         section
-          h1 Javascript is pretty great
-          h2 why not try node.js? :0)
+          h1 Questions?
+          h3.spacer: a(_target='_blank', href='https://github.com/scottnonnenberg/social-engineering-for-good') github.com/scottnonnenberg/social-engineering-for-good
+          h3: a(_target='_blank', href='https://scottnonnenberg.com') scottnonnenberg.com
 
         section
-          h1 Thanks
-          h3 Scott Nonnenberg / 
-            a(_target='_blank', href='https://scottnonnenberg.com') scottnonnenberg.com
+          h1 Thanks!
+          h3.spacer: a(_target='_blank', href='https://github.com/scottnonnenberg/social-engineering-for-good') github.com/scottnonnenberg/social-engineering-for-good
+          h3: a(_target='_blank', href='https://scottnonnenberg.com') scottnonnenberg.com
 
     script(src='js/head.min.js')
     script(src='js/reveal.min.js')
@@ -776,6 +511,6 @@ html(lang='en')
 
         dependencies: [
           { src: 'js/classList.js', condition: function() { return !document.body.classList; } },
-          { src: 'js/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+          { src: 'lib/notes/notes.js', async: true },
         ]
       });

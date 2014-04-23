@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><title>taking javascript seriously</title><meta name="description" content="A talk about how to make your javascript development more like your &quot;real&quot; development."><meta name="author" content="Scott Nonnenberg"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><link rel="stylesheet" href="css/reveal.min.css"><link rel="stylesheet" href="css/theme/default.css" id="theme"><link rel="stylesheet" href="css/zenburn.css"><script>document.write( "<link rel='stylesheet' href='css/" +
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><title>social engineering for good, not evil</title><meta name="description" content="A talk about how to make your javascript development more like your &quot;real&quot; development."><meta name="author" content="Scott Nonnenberg"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><link rel="stylesheet" href="css/reveal.min.css"><link rel="stylesheet" href="css/theme/default.css" id="theme"><link rel="stylesheet" href="css/zenburn.css"><script>document.write( "<link rel='stylesheet' href='css/" +
  ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + ".css' type='text/css' media='print'>" );
  </script><style>.center {
   display: inline-block;
@@ -25,208 +25,15 @@ a.run {
 .reveal th {
   font-weight: bold;
 }
-
-</style></head><body><div class="reveal"><div class="slides"><section><h1>Software Engineering for Good, Not Evil</h1><h3>Because it's not just about the tech</h3><h3><a target="_blank" href="https://scottnonnenberg.com">Scott Nonnenberg</a></h3><h4 class="spacer"><a target="_blank" href="http://scottnonnenberg.github.io/social-engineering-for-good/dist/slides.html">github.com/scottnonnenberg/social-engineering-for-good</a></h4></section><section><section><h1>why take it seriously?</h1><ul><li>More code</li><li>More complex web experiences</li><li>More hard-to-test interactivity</li></ul></section><section><h2>Raise your hand if you...</h2><ul><li>unit test</li><li class="fragment">integration/acceptance test</li><li class="fragment">measure code coverage</li><li class="fragment">run static analysis</li><li class="fragment">run continuous integration</li><li class="fragment">use dependency injection</li><li class="fragment">use the service locator pattern</li></ul><h2 class="spacer">your server code?</h2></section><section><h1>Do that with your javascript?</h1><h2>Keep those hands up</h2></section><section><h1>Let's dig in</h1></section></section><section><section><h1>Basic tools</h1><h2>nobody writes straight javascript</h2></section><section><h2>jquery</h2><h3>use it? raise your hand</h3><pre><code data-trim contenteditable>$('#id').click(function() {
-  alert('something!');
-});
-
-$.getJSON('http://somewhere', function(data) {
-  alert(data);
-});
-</code></pre></section><section><h2>lodash/underscore</h2><h3>use it? raise your hand</h3><div class="runner"><pre><code data-trim contenteditable>var a = [1, 2, 3, 4, 5];
-var result = _.reject(a, function(item) { return item > 3; });
-console.log(result);
-
-var b = [3, 4, 5, 6, 7];
-var result = _.intersection(a, b);
-console.log(result);
-</code></pre><a href="#" class="run">run</a></div></section><section><h2>mvc/mvvm</h2><h3>use one? raise your hand</h3><ul><li>backbone</li><li>ember</li><li>angular</li><li>lots more!</li></ul><p class="spacer">use <a target="_blank" href="http://todomvc.com/">todomvc</a> to shop around</p><p class="spacer">why wouldn't you? organize your code intelligently!</p></section></section><section><section><h2>open source: a different world</h2><table><tr><th width="50%">XCode/VS/Eclipse</th><th>open source</th></tr><tr><td>big IDE</td><td>text editors</td></tr><tr><td>large built-in set of libaries</td><td>many options with separate communities</td></tr><tr><td>official channels</td><td>usually github</td></tr><tr><td>intellisense, docs, blogs</td><td>annotated source, blogs, sometimes docs</td></tr></table></section><section><h2>choosing an open source project</h2><h3>activity level</h3><ul><li>date of last release, frequency of releases</li><li>look for open bugs - orphaned? time to resolve?</li><li>date of the last commit</li></ul><h3 class="spacer">size of community</h3><ul><li>stars and forks</li><li>questions/answers on stack overflow</li></ul><h3 class="spacer">fork it, fix it, and pull request it!</h3></section></section><section><h2>other libraries I use</h2><ul><li><strong>timezone-js</strong></li><li><strong>easyxdm</strong> - cross-domain communication</li><li><strong>spin.js</strong> - non-image progress spinners</li><li><strong>d3.js</strong> - svg-based interactive data visualizations</li><li><strong>socket.io</strong> - websockets, graceful degradation</li></ul><p class="spacer fragment">which brings us to...</p></section><section><section><h2>dependency management</h2><p>how do you manage lots of libraries?</p><div class="fragment"><h3 class="spacer"><a target="_blank" href="http://bower.io/">bower</a></h3><h3><a target="_blank" href="https://npmjs.org/doc/install.html">npm</a></h3><ul><li>easily download and install</li><li>manage those libraries' dependencies</li><li>check for updates</li></ul></div></section><section><h2>managing versions over time</h2><h3>semantic versioning (semver)</h3><ul><li>X.0.0 for breaking changes</li><li>1.X.0 for addition of features</li><li>1.0.X for bugfixes</li><li class="fragment"><strong>warning</strong>: 0.x.x is flexible</li></ul><p class="spacer fragment">jquery "1.x" or jquery "~1.10.2"</p><p class="spacer fragment">npm allows you to be hardcore: <a target="_blank" href="https://npmjs.org/doc/shrinkwrap.html">shrinkwrap</a></p></section></section><section><h1>back to our project</h1><h2>but we're full TDD, right?</h2></section><section><section><h1>let's set up a test harness</h1></section><section><h2>mocha: test runner</h2><div class="runner"><pre><code data-trim contenteditable>mocha.setup('bdd');
-describe('MyClass', function() {
-  before(function(done) {
-    // initial setup, async because arity > 0
-    done();
-  });
-  
-  beforeEach(function() {
-    // before every test
-  });
-  
-  describe('#method', function() { // nested describe
-    it('should handle a null parameter', function() {
-      // test logic here, exceptions denote failure
-    });
-  });
-});
-</code></pre><a href="#" class="run">run</a></div><p>runs in the browser and on the command line</p></section><section><h2>chai: fluid assertions</h2><div class="runner"><pre><code data-trim contenteditable>var expect = chai.expect;
-
-var x;
-expect(x).not.to.exist;
-
-var data = { x: 6 };
-expect(data).to.have.property('x', 6);
-expect(data).to.deep.equal({x: 6});
-</code></pre><a href="#" class="run">run</a></div></section><section><h2>sinon: stubs and spies</h2><div class="runner"><pre><code data-trim contenteditable>var spy = sinon.spy(String.prototype, 'toUpperCase');
-expect(spy).to.have.property('callCount', 0);
-expect('blah'.toUpperCase()).to.equal('BLAH');
-expect(spy).to.have.property('callCount', 1);
-spy.restore();
-
-var stub = sinon.stub().returns(6);
-expect(stub()).to.equal(6);
-expect(stub).to.have.property('callCount', 1);   
-</code></pre><a href="#" class="run">run</a></div><p class="spacer">it can also redirect $.ajax and sandbox entire browser</p></section><section><h2>blanket: code coverage</h2><p>no instrumentation step!</p><p class="spacer">easy client-side setup</p><pre><code data-trim contenteditable>&lt;script src="blanket.js"&gt;&lt;/script&gt;
-&lt;script src="my-library.js" data-cover&gt;&lt;/script&gt;
-</code></pre><p class="spacer">easy node.js setup          </p><pre><code>mocha --require blanket --reporter html-cov testfile1.js testfile2.js
-
-// in package.json:
-"scripts": {
-  "blanket": {
-    "data-cover-only": "src"
-  }
+.reveal img.plain {
+  border: 0;
+  box-shadow: none;
+  background: none;
 }
-</code></pre></section><section><h2>phantomjs: headless browser</h2><ol><li>run tests</li><li>interact with web pages</li><li>capture screenshots</li><li>based on webkit</li></ol></section></section><section><section><h1>Rounding it out</h1></section><section><h2>documentation</h2><h3>groc</h3><p>comments interspersed with source</p><h3 class="spacer">jsdoc</h3><p>meaningful tags</p></section><section><h2>running in a real browser</h2><div class="fragment"><h3 class="spacer"><a target="_blank" href="http://www.muscula.com/">muscula</a>: error capture and reporting</h3><p>use only for production; breaks mocha testing</p></div><div class="fragment"><h3 class="spacer">script tags at the bottom</h3><p>script block while they load by default</p><a target="_blank" href="http://stackoverflow.com/questions/436411/where-is-the-best-place-to-put-script-tags-in-html-markup">source</a> <a target="_blank" href="http://developer.yahoo.com/performance/rules.html#js_bottom">source</a></div><div class="fragment"><h3 class="spacer">only a few js files</h3><p>browsers will only open so many connections to the server</p><a target="_blank" href="http://stackoverflow.com/questions/5751515/official-references-for-default-values-of-concurrent-http-1-1-connections-per-se">source</a> <a target="_blank" href="http://www.stevesouders.com/blog/2008/03/20/roundup-on-parallel-connections/">source</a></div></section><section><h1>but how?</h1><h2>want small, single-reponsibility files</h2><h2>don't want a new script tag per file</h2></section></section><section><section><h2>Modules</h2><h3 class="spacer">CommonJS</h3><pre><code>var _ = require('lodash');
-
-module.exports = function(options) {};</code></pre><h3 class="spacer">AMD</h3><pre><code>define(['lodash'], function(_) {
-  return function(options) {};
-});
-</code></pre></section><section><h2>module managers</h2><div class="fragment"><h3 class="spacer">AMD: requirejs and almond.js</h3><p>pro: no build step required; detailed control</p><p>con: boilerplate required for every file</p></div><div class="fragment"><h3 class="spacer">CommonJS: browserify</h3><p>pro: stubs out standard node.js components for you</p><p>con: requires build step to get into browser</p></div><div class="fragment"><h3 class="spacer">Other: google closure compiler</h3><p>pro: can prune unused code</p><p>con: requires build step to get into browser</p></div></section></section><section><h2>dependency injection</h2><pre><code>function Obj(options) {
-  options = options || {};
-  
-  this.Database = options.Database || Database;
-  this.database = new this.Database();
-  this.service = options.service || service;
+.reveal img.max {
+  width: 95%;
 }
-</code></pre><div class="fragment"><h3 class="spacer">Service Locator Pattern</h3><p>Not a common thing in javascript world yet.</p><p class="spacer"><a target="_blank" href="http://docs.angularjs.org/guide/di">Angular </a> - the first mainstream project to take it seriously.</p><p class="spacer">other folks <a target="_blank" href="https://github.com/holt/syringe">are</a> <a target="_blank" href="https://github.com/idottv/dependable">experimenting</a> <a target="_blank" href="https://npmjs.org/browse/keyword/dependency%20injection">with</a> it</p></div></section><section><h1>finally some code!</h1></section><section><section><h1>but how well do you know javascript?</h1></section><section><h2> falsey vs. truthy</h2><div class="runner"><pre><code data-trim contenteditable>console.log(!!null);
-console.log(!!undefined);
-console.log(!!false);
-console.log(!!0);
-console.log(!!'');
-console.log(!!NaN);
-
-var f = function() {};
-console.log(!!f);
-console.log(!!1);
-console.log(!!'something');
-console.log(!!true);
-</code></pre><a href="#" class="run">run</a></div></section><section><h2>=== vs ==</h2><div class="runner"><pre><code data-trim contenteditable>var o = {a: 0};
-console.log(o.a == '0');
-console.log(o.a == 0);
-console.log(o.a === '0');
-console.log(o.a === 0);
-
-o.a = null;
-console.log(o.a == null);
-delete o.a; // now it's undefined
-console.log(o.a == null);
-
-</code></pre><a href="#" class="run">run</a></div></section><section><h2>functions are objects</h2><div class="runner"><pre><code data-trim contenteditable>var f = function(a) {
-  console.log(arguments);
-}
-
-console.log(typeof f);
-console.log(f);
-console.log(f.length);
-
-f.a = 4;
-console.log(f.a);
-
-f(6, 7);
-f.call(null, 6, 7);
-f.apply(null, [6, 7]);</code></pre><a href="#" class="run">run</a></div></section><section><h2>context and closures</h2><div class="runner"><pre><code data-trim contenteditable>var a = 1;
-var f = function(b) {
-  return function(c) {
-    console.log('a: ' + a + '; b: ' + b + '; c: ' + c);
-  }
-}
-
-var g = f('2');
-g(3);
-g(4);
-
-a = 2;
-g(5);</code></pre><a href="#" class="run">run</a></div></section><section><h2>single-threaded, always</h2><div class="runner"><pre><code data-trim contenteditable>x = 0;
-
-var first = setInterval(function() {
-  x += 1;
-  console.log(x);
-}, 1);
-var second = setInterval(function() {
-  x -= 1;
-  console.log(x);
-}, 1);
-
-setTimeout(function() {
-  clearInterval(first);
-  clearInterval(second);
-}, 250); </code></pre><a href="#" class="run">run</a></div><p class="spacer">(<a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/Guide/Performance/Using_web_workers">web workers</a> do now allow concurrency, but you don't have access to the same context)</p></section><section><h2>prototype inheritance</h2><div class="runner"><pre><code data-trim contenteditable>function Super(options) { this.a = options.a };
-Super.prototype.f = function() { console.log(this.a); };
-
-function Sub(options) {
-  Super.call(this, options);
-};
-Sub.prototype = Object.create(Super.prototype, {
-  constructor: { value: Sub }
-});
-
-var p = new Super({a: 'super'});
-p.f();
-var c = new Sub({a: 'sub'});
-c.f();
-
-Sub.prototype.g = function() { console.log('post create add!'); };
-c.g();</code></pre><a href="#" class="run">run</a></div></section><section><h2>getters/setters</h2><div class="runner"><pre><code data-trim contenteditable>function Obj() { this.value = 1; };
-
-Object.defineProperty(Obj.prototype, 'property', {
-  get: function() { 
-    return 'computed: ' + this.value;
-  },
-  set: function(value) { 
-    this.value = value;
-  }
-});
-
-var o = new Obj();
-
-console.log(o.property);
-o.property = 2;
-console.log(o.value);
-</code></pre><a href="#" class="run">run</a></div><p class="spacer"><a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/create">Object.create</a> and <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty">Object.defineProperty</a> are <a target="_blank" href="http://en.wikipedia.org/wiki/ECMAScript">ES5</a> features.</p><p class="spacer fragment">which brings us to...</p></section></section><section><section><h1>uneven browser support!</h1><h2>nooo!</h2></section><section><h2>how bad is it?</h2><h3 class="spacer"><a target="_blank" href="http://caniuse.com/#cats=JS_API">caniuse</a></h3><p>support matrix for javascript features, css, svg, html5</p><h3 class="spacer"><a target="_blank" href="http://kangax.github.io/es5-compat-table/">kangax</a></h3><p>detailed es5 feature matrix</p></section><section><h2>the horrible truth</h2><p>overall javascript feature support</p><p><a target="_blank" href="http://caniuse.com/#cats=JS_API"><img src="img/caniuse_javascript_totals.png"></a></p></section><section><h2>browser usage</h2><p><a target="_blank" href="http://caniuse.com/usage_table.php"><img src="img/caniuse_browser_usage.png"></a></p></section><section><h1>all is not lost!</h1></section><section><h2>polyfills to the rescue!</h2><p style="max-width: 20em" class="center"><strong>polyfill</strong>: downloadable code providing functionality not built into a web browser</p><p class="spacer"><a target="_blank" href="http://html5please.com/#js">html5please.com</a></p><p><a target="_blank" href="https://github.com/kriskowal/es5-shim/">es5-shim</a></p><p><a target="_blank" href="https://code.google.com/p/html5shiv/">html5-shiv</a></p></section><section><h2>testing in actual browsers</h2><h3 class="spacer">test tools</h3><p><a target="_blank" href="http://karma-runner.github.io/0.10/index.html">karma</a></p><p><a target="_blank" href="https://github.com/airportyh/testem">Test'em</a></p><h3 class="spacer">services</h3><p><a target="_blank" href="http://crossbrowsertesting.com">crossbrowsertesting.com</a></p><p><a target="_blank" href="http://www.browserstack.com/">browserstack.com</a></p><p><a target="_blank" href="http://www.smashingmagazine.com/2011/08/07/a-dozen-cross-browser-testing-tools/">many more... </a></p></section><section><h1>back to the code</h1></section></section><section><section><h2>this</h2><div class="runner"><pre><code data-trim contenteditable>function Obj() { this.x = 7; };
-Obj.prototype.f = function() { console.log(this); };
-
-var o = new Obj();
-o.f();
-
-var g = o.f; // pull the method out
-g(); // raw call, gets global context
-
-g.call(o);
-
-g = _.bind(g, o);
-g();
-
-var nope = Obj(); // forgot the new
-console.log(nope); // undefined!
-console.log(x); // where did this come from?
-</code></pre><a href="#" class="run">run</a></div><p class="spacer fragment">which brings us to...</p></section></section><section><section><h2>strict mode</h2><p>fixing some of the key problems with javascript</p><div class="runner spacer"><pre><code data-trim contenteditable>'use strict';
-
-// these no longer parse
-var broken = function(dupe, dupe) {}; // no duplicate parameters
-var broken = { dupe: 1, dupe: 2 }; // no duplicate keys
-
-with ({}) { x = 4; y = 3; } // no more with
-var x = 015; // you probably don't mean octal syntax
-
-
-// these fail at runtime
-function Obj() { this.x = 7; };
-var nope = Obj(); // this not set to global anymore
-
-y = 5; // using undefined var
-delete Object.prototype; // this would normally fail silently
-</code></pre><a href="#" class="run">run</a></div><p><a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions_and_function_scope/Strict_mode">full docs at MDN</a></p></section><section><h2>strict mode support</h2><p><a target="_blank" href="http://caniuse.com/#feat=use-strict"><img src="img/caniuse_strict_mode.png"></a></p><p class="spacer">you'll need to be a careful, since it changes behavior</p></section></section><section><section><h1>okay, it's a bit tricky</h1><h2>but there are tools to help!</h2></section><section><h2>jshint</h2><ul><li>forgot 'new' keyword?</li><li>did you really mean == instead of ===?</li><li>warn on use of undeclared variable</li><li>never-used variables, unreachable code</li><li>cyclomatic complexity, with error threshold</li><li>force strict mode</li><li>style: indentation and quote character</li></ul><p class="spacer"><a target="_blank" href="http://www.jshint.com/">jshint</a></p><p><a target="_blank" href="http://jslinterrors.com/jshint/"> jslinterrors.com: a useful guide</a></p></section><section><h2>complexityReport.js</h2><p>perhaps you'd like to check the maintainability of your code?</p><p><a target="_blank" href="https://github.com/philbooth/complexityReport.js"><img src="img/complexity-report.png"></a></p><p>(best implemented using a <a target="_blank" href="https://github.com/vigetlabs/grunt-complexity">grunt task</a>)</p><p class="spacer fragment">which brings us to...</p></section></section><section><h2>grunt: project automation</h2><p><a target="_blank" href="http://gruntjs.com/"><img height="200" border="0" src="img/grunt-logo.png"></a></p><p>tasks available for jshint, mocha, watch, concat/minify, etc.</p><p><a target="_blank" href="http://gruntjs.com/api/inside-tasks">powerful api</a> for developing your own tasks</p><p>plugs into continuous integration: <a target="_blank" href="http://sideroad.secret.jp/articles/grunt-on-jenkins/">jenkins</a>, <a target="_blank" href="http://manuel.manuelles.nl/blog/2012/06/22/integrate-travis-ci-into-grunt/">travis-ci</a></p></section><section><h1>whew!</h1></section><section><h2>we covered an extreme amount</h2><p>fortunately, there are tools to help you jump in really fast</p><p><a target="_blank" href="http://yeoman.io/"><img height="200" border="0" src="img/yeoman-logo.png"></a></p><pre><code>[sudo] npm install -g yo generator-webapp
-mkdir yeoman-app
-cd yeoman-app
-yo webapp</code></pre><p class="spacer">study it for best practices, improve it, fork it, pull request it!</p><p><a target="_blank" href="http://yeoman.io/community-generators.html">many, many other generators</a></p></section><section><h1>Javascript is pretty great</h1><h2>why not try node.js? :0)</h2></section><section><h1>Thanks</h1><h3>Scott Nonnenberg / <a _target="_blank" href="https://scottnonnenberg.com">scottnonnenberg.com</a></h3></section></div></div><script src="js/head.min.js"></script><script src="js/reveal.min.js"></script><script>Reveal.initialize({
+</style></head><body><div class="reveal"><div class="slides"><section><h1>Social Engineering for Good, Not Evil</h1><h3 class="spacer">Because it's not just about the tech</h3><h3 class="spacer"><a target="_blank" href="https://scottnonnenberg.com">Scott Nonnenberg</a></h3><h4><a target="_blank" href="http://scottnonnenberg.github.io/social-engineering-for-good/dist/slides.html">github.com/scottnonnenberg/social-engineering-for-good</a></h4></section><section><h1>The Divide</h1><aside class="notes"><ul><li>Between tech and non-tech</li><li>Frustrations on both sides</li></ul></aside></section><section><section><h1>Why me?</h1><aside class="notes">Well, I have an interesting history in the tech world...</aside></section><section><img src="img/milton.jpg" class="max"><aside class="notes"><ul><li>I was this guy! There's a reason there aren't many pictures remaining of me from high school</li><li>Discovered computer games at age 8</li><li>Family wasn't technical, always encouraging me to spend less time on the computer (guilt complex!)</li><li>Called a geek or brain in school</li><li>Started working at HP doing web dev in High school</li><li>Computer Science at CalPoly</li></ul></aside></section><section><img src="img/lundberg.jpg" class="max"><aside class="notes"><ul><li>During my time at Microsoft, I got a little more "business-y"</li><li>And that caused resentment from the tech folks - called "overhead" </li></ul></aside></section><section><h1>The challenge</h1><aside class="notes"><ul><li>Technology came naturally to me, people didn't</li><li>I explicitly took the challenge, going from dev to business as I joined Microsoft</li><li>Called abrasive... at Microsoft!</li><li>People are harder to deal with than the code!</li></ul></aside></section></section><section><section><h1>Student of human behavior</h1><aside class="notes"><ul><li>I needed to become a...</li><li>Treat it like a skill to be learned</li></ul></aside></section><section><h1>People matter</h1><aside class="notes"><ul><li>They are as importrant to your career than your tech skill</li><li>Business is people interacting</li><li>Your job is people interacting</li><li>etc.</li></ul></aside></section><section><h2>You've got the hardware</h2><ul class="spacer"><li class="fragment">We are systematic, logical thinkers</li><li class="fragment">Debugging = collecting data, theorizing, testing</li><li class="fragment">We've tuned our intuition for 'code smells'</li></ul><aside class="notes"><ul><li>We are systematic, logical thinkers<ul><li>We think about entire systems, understand how one change will affect it</li></ul></li><li>Debugging = collecting data, theorizing, testing<ul><li>We all have that story of a really tough bug, where we tried approach after approach, and finally fixed it!</li></ul></li><li>We've tuned our intuition for 'code smells'<ul><li>By looking at lots and lots of code, we've trained low-level systems</li></ul></li></ul></aside></section></section><section><section><h1>Three C's of Communication</h1><aside class="notes"><ul><li>First, let's talk about the basic building blocks of dealing with humans</li></ul></aside></section><section><h2>Clarity</h2><ul class="spacer"><li class="fragment">Define terms</li><li class="fragment">Summarize with paraphrasing</li><li class="fragment">Agree on specific next steps</li><li class="fragment">Send meeting notes </li></ul><aside class="notes"><ul><li>Define terms<ul><li>story: Everett at Microsoft, early on</li></ul></li><li>Summarize with paraphrasing<ul><li>Exercise: have someone volunteer to paraphrase, have it be wrong. words are tricky!</li><li>I need this by Friday</li><li>This is extremely urgent! Get it to me ASAP.</li><li>Please have this on my desk by EOD today.</li><li>Please send the email in a few days.</li></ul></li><li>Agree on specific next steps</li><li>Send meeting notes <ul><li>at Microsoft I used to take notes on the screen - real-time summary paraphrase!</li></ul></li></ul></aside></section><section><h2>Confidence</h2><ul class="spacer"><li class="fragment">Posture</li><li class="fragment">Eye contact</li><li class="fragment">No trail-off</li><li class="fragment">Minimize weasel-words</li></ul><aside class="notes"><ul><li>Posture<ul><li>the classic tech posture</li><li>[have everyone stand, shoulders back, chest forward, pelvis tilted a little back]</li><li>standing desk, multiple keyboards!</li><li>could do an entire talk on this</li><li>go to massage therapist, physical therapist</li></ul></li><li>Eye contact</li><li>No trail-off</li><li>Minimize weasel-words<ul><li>used to crack down on this as a Project Manager at Microsoft</li><li>speak plainly, no more and no less than necessary</li></ul></li></ul></aside></section><section><h2>A word on weasel words</h2><ul class="spacer"><li>Remove authority with passive voice: "it is said"</li><li>Weaken core idea: "often", "probably"</li><li>Remove specific numbers: "some people", "experts", "many"</li></ul><div class="spacer">More info: <a href="http://en.wikipedia.org/wiki/Weasel_word">Wikipedia</a> / <a href="http://www.weaselwords.com.au/home/">weaselwords.com.au</a></div></section><section><h2>Caring</h2><ul class="spacer"><li class="fragment">Facial expressions, tones of voice</li><li class="fragment">Be less judgmental!</li><li class="fragment">Don't preach; influence</li><li class="fragment">The Platinum Rule</li></ul><aside class="notes"><li>[here is where we have the risk of looking evil]</li><li>Facial expressions, tones of voice<ul><li>Beyond simple expressions, need to give them what they want, not what you want</li><li>The key is that the same action without that caring, the positive body language, can be interpreted poorly</li></ul></li><li>Be less judgmental!<ul><li>You know you do it - you're sure you're right, how could they possibly think so wrongly?</li><li>we're really bad actors</li><li>the best way to act like you care about someone is to actually care about them</li><li class="spacer">maybe you're already considered evil? maybe have a history of negative interactions</li><li>will take time to break through</li></ul></li><li>Don't preach; influence<ul><li>Can't appeal to some random authority</li><li>Need to influence by speaking their language, connect to their priorities</li></ul></li><li>The Platinum Rule<ul><li>A step better than the golden rule</li><li>But it's even harder to do!</li><li>Story: Asked for two-page stories for christmas because I already had too much stuff.</li><li>I only got one story and a bunch of gifts.</li></ul></li></aside></section><section><h2>A word on relationships</h2><ul class="spacer"><li class="fragment">Acknowledge feelings</li><li class="fragment">Contradict facts softly</li></ul><aside class="notes"><ul><li>Acknowledge feelings</li><li>Contradict facts softly</li><li>[the point is that we're valuing their perspective, even if it's different]</li></ul></aside></section></section><section><section><h1>First, Seek Understanding</h1></section><section><h2>Pay attention!</h2><aside class="notes"><ul></ul><li>build subconscious pattern recognition</li></aside></section><section><img src="img/code_nice.png" class="max"></section><section><img src="img/code_ugly.png" class="max"></section><section><h2>Be deliberate in tuning your intuition!</h2><aside class="notes"><ul><li>[which was was better, higher quality?]</li><li>tuning your intuition - requires lots of data an experiences</li><li>switch companies/teams?</li><li>the more cultures, people and teams you work with, the more data, better the tuning</li></ul></aside></section><section><h2>Build and Test Mental Models</h2><ul><li data-fragment-index="1" class="fragment">What do they know?</li><li data-fragment-index="1" class="fragment">What mindset might cause their current behavior?</li><li data-fragment-index="1" class="fragment">What are they trying to achieve with X action? Generally?</li><li class="fragment">Consider larger context: incentives, deadlines, manager's desires, team, history, etc...</li><li class="fragment">Test your theories by asking questions</li></ul><aside class="notes"><ul><li>[Now we start building on top of that subconcsious pattern recognition - verbalize!]</li><li>What do they know?</li><li>What mindset might cause their current behavior?</li><li>What are they trying to achieve with X action? Generally?</li><li>Consider larger context: incentives, deadlines, manager's desires, team, history, etc...<ul><li>[exercise? hold two conflicting ideas in your head]</li><li>Key: you need to be okay with a different perspective</li></ul></li><li>Test your theories by asking questions</li></ul></aside></section><section><h1>A word on your career</h1></section><section><img src="img/venn_good.png" class="plain"><aside class="notes"><ul><li>it's here you'll start to notice that most people are at the intersection of: easy, visible, good job]</li><li>It's not a bad thing, it's just the truth</li><li>And we're not being evil here; help people extend past that middle intersection</li></ul></aside></section><section><img src="img/venn_big_picture.png" class="plain"><aside class="notes"><ul><li>you can be different</li><li>this is where you can push your career forward</li><li>Beware of people already here because it's in their visible/good job/easy bucket)</li><li>Also be sure to do enough to get that good job review; solid foundation</li><li>But what is that big pictures? Let's go deeper</li></ul></aside></section><section><h2>Getting Deeper</h2></section><section><h2>Better questions</h2><ul><li class="fragment">First, build trust</li><li class="fragment">Important to do this 1 on 1</li><li class="fragment">Open-ended, minimal leading</li><li class="fragment">Ask why</li><li class="fragment">"Tell me about the last time you X" (specific, recent)</li><li class="fragment">Clarity: paraphrase, define words</li><li class="fragment">How do they spend their time? money?</li><li class="fragment">Try with your manager, peers, customers, friends, etc.</li><aside class="notes"><ul><li>First, build trust<ul><li>Again, with the evil - your percieved intentions matter here</li></ul></li><li>Important to do this 1 on 1<ul><li>People will affect each other's answers</li></ul></li><li>Open-ended, minimal leading<ul><li>you're trying to understand them, not influence them</li><li>trying to understand deeper attitudes, true priorities - how they think</li></ul></li><li>Ask why or how questions</li><li>"Tell me about the last time you X" (specific, recent)<ul><li>Breakin  g through person's ideals about themselves</li><li>Most people have lofty ideals, noble pursuits.</li><li>when you look at how much time they actually spend on that stuff, it's pretty minimal</li><li>You can trace back the majority of their time to a few things: money, sex, power, food, physical comfort.</li><li>Now I'm starting to sound like a supervillain, justifying my plan to kill of most of the human race.</li><li>That's the crazy thing. This is humanity, and it applies to all of us too.</li></ul></li><li>Clarity: paraphrase, define words</li><li>How do they spend their time? money?</li><li>Try with your manager, peers, customers, friends, etc.<ul><li>From Steve Blank's Customer Development</li><li>Extremely important in the startup world to truly understand your market</li></ul></li></ul></aside></ul></section><section><h1>Now what?</h1><aside class="notes">Now that you have all this deep understanding, what do you do with it?</aside></section><section><h2>What is creativity?</h2><ul class="spacer"><li class="fragment">Different</li><li class="fragment">Unique</li><li class="fragment">Better</li><li class="fragment">Solving a problem</li></ul><aside class="notes"><ul><li>[Can you guys define creativity for me?]</li><li>Different</li><li>Unique</li><li>Better</li><li>Solving a problem</li></ul></aside></section></section><section><section><h1>Solve problems</h1><ul class="spacer"><li>Customer problems</li><li>Your manager's problems</li><li>Your peer's problems</li><li>Your friends' and family's problems</li></ul></section><section><h2>A word on evil</h2><ul><li class="fragment">Easy to 'fall into'</li><li class="fragment">Fairness matters</li><li class="fragment">Do they have any other options?</li><li class="fragment">Is it too direct?</li><li class="fragment">Did you give them a chance to help?</li><aside class="notes"><ul><li>Easy to 'fall into'<ul><li>The real world isn't superheroes and supervillains.</li><li>Free-to-play games - is that abusing deep knowledge of psychology?</li></ul></li><li>Fairness matters<ul><li>You're collaborating on something. Make sure the outcome is reasonably fair for you.</li><li>Be sure to give credit to those your worked with.</li></ul></li><li>Do they have any other options?<ul><li>Uber's congestion pricing</li><li>High-priced umbrellas (rain) or fans and AC (heat)</li><li>People taking low-wage jobs</li></ul></li><li>Is it too direct?<ul><li>Need to make sure to address higher ideas as well as low-level needs/desires</li><li>Money and meaning makes for a better, fuller job                     </li><li>Straight porn vs. using sex to sell in a subtle way</li></ul></li><li>Did you give them a chance to help?<ul><li>It's a hit to pride if you just do something for someone</li></ul></li></ul></aside></ul></section></section><section><h2>Summary</h2><ul><li>Become a student of human behavior</li><li>First, seek understanding<ul><li>Pay attention: tune intuition with lots of data</li><li>Build and test mental models</li><li>Get deeper: past the abstract and ideal</li></ul></li><li>Communicate well - three C's<ul><li>Clarity</li><li>Confidence</li><li>Caring: the platinum rule, judge less</li></ul></li><li>Solve problems!</li></ul></section><section><section><h1>Next Steps</h1></section><section><h2>Next steps: Advanced</h2><ul class="spacer"><li>Understanding entire systems<ul><li>How a team works together</li><li>How a team works with another team</li><li>How a set of teams interact with each other</li><li>How the entire business works</li></ul></li><li>Predicting emergent behavior - a few steps ahead</li><li>Entrepreneurship - at its core, solving people's problems</li></ul></section><section><h2>Next steps: Involve Others</h2><ul class="spacer"><li>Get a mentor to talk through things</li><li>Find a peer to code review your theories</li><li>Play this game with friends for movies/shows/books:<ul><li>Why did the character do X?</li><li>Does that seem consistent with their character/world?</li><li>Do you have any guesses about the writer? Their biases?</li></ul></li><li>However you learn best: books/magazines/blogs/etc.</li></ul></section><section>   <h2>Next Steps: Further reading</h2><ul class="spacer"><li><a target="_blank" href="https://news.ycombinator.com/item?id=7493290">Ask HN: difference between junior and senior developer <ul><li><a target="_blank" href="https://news.ycombinator.com/item?id=7493493">"Most of the important skills have nothing to do with technology"</a></li><li><a target="_blank" href="https://news.ycombinator.com/item?id=7493661">Humility/self-awareness</a></li></ul></a></li><li><a target="_blank" href="https://medium.com/p/e60c10d3ed1f">A woman's perspective on the tech industry</a><ul><li>(valuable traits: "empathy, humility, and introspection")</li></ul></li><li><a target="_blank" href="http://www.yesmagazine.org/issues/education-uprising/raise-your-hand-if-you-know-how-it-feels">Empathy helping high-poverty schools</a></li><li><a target="_blank" href="http://giffconstable.com/2012/12/12-tips-for-early-customer-development-interviews-revision-3/">Good interviewing techniques</a></li><li>Steve Blank's Customer Development: <a href="https://www.udacity.com/course/ep245">blog posts</a> / <a href="http://steveblank.com/category/customer-development/">class</a></li><li><a target="_blank" href="http://www.amazon.com/Triumphs-Experience-Harvard-Grant-Study/dp/0674059824">What makes for a 'good' life and career</a></li></ul></section></section><section><h1>Questions?</h1><h3 class="spacer"><a _target="_blank" href="https://github.com/scottnonnenberg/social-engineering-for-good">github.com/scottnonnenberg/social-engineering-for-good</a></h3><h3><a _target="_blank" href="https://scottnonnenberg.com">scottnonnenberg.com</a></h3></section><section><h1>Thanks!</h1><h3 class="spacer"><a _target="_blank" href="https://github.com/scottnonnenberg/social-engineering-for-good">github.com/scottnonnenberg/social-engineering-for-good</a></h3><h3><a _target="_blank" href="https://scottnonnenberg.com">scottnonnenberg.com</a></h3></section></div></div><script src="js/head.min.js"></script><script src="js/reveal.min.js"></script><script>Reveal.initialize({
   controls: false,
   progress: true,
   history: true,
@@ -238,6 +45,6 @@ yo webapp</code></pre><p class="spacer">study it for best practices, improve it,
   
   dependencies: [
     { src: 'js/classList.js', condition: function() { return !document.body.classList; } },
-    { src: 'js/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+    { src: 'lib/notes/notes.js', async: true },
   ]
 });</script></body></html>
