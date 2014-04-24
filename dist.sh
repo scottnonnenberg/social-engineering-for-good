@@ -36,4 +36,6 @@ cp bower_components/reveal.js/lib/js/classList.js dist/js/classList.js
 
 # notes plugin
 cp bower_components/reveal.js/plugin/notes/notes.js dist/lib/notes/notes.js
-cp bower_components/reveal.js/plugin/notes/notes.html dist/lib/notes/notes.html
+
+# using custom-tweaked notes.html for now
+# cp bower_components/reveal.js/plugin/notes/notes.html dist/lib/notes/notes.html
